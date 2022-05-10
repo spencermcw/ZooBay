@@ -1,0 +1,18 @@
+{
+  "name": "hardhat-project",
+  "scripts": {
+    "dev": "dotenv -- node scripts/server.js",
+    "deploy": "dotenv -- npx hardhat run scripts/deploy.dev.js",
+    "start": "node scripts/server.js",
+    "compile": "hardhat compile",
+    "test": "hardhat test test/test.js"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-waffle": "^2.0.3",
+    "@openzeppelin/contracts": "^4.5.0",
+    "chai": "^4.3.6",
+    "dotenv": "^16.0.0",
+    "ganache-cli": "^6.12.2",
+    "hardhat": "^2.9.2"
+  }
+}

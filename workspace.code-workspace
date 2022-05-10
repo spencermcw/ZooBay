@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "dapp"
+		},
+		{
+			"path": "server"
+		},
+		{
+			"path": "eth"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,25 @@
+body {
+    font-family: 'Chakra Petch', sans-serif;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    font-family: 'Chakra Petch', sans-serif;
+    text-transform: uppercase;
+    
+}
+
+.cz-link {
+    font-weight: bold;
+    color: map-get($map: $custom-theme-colors, $key: "cz-gold2");
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.gold {
+    color: map-get($map: $custom-theme-colors, $key: "cz-gold2");
+}
+
+.wb {
+    word-break: break-all;
+}

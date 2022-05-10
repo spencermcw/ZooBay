@@ -1,0 +1,55 @@
+// Theme extensions
+@import './themes';
+
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+
+// Body
+$body-bg: #000000;
+$body-color: $light;
+
+// Buttons
+// $btn-border-radius: 500px;
+// $btn-border-radius-sm: 500px;
+// $btn-border-radius-lg: 500px;
+$btn-secondary-add-color: $dark;
+
+// Navbar
+$navbar-light-color:                $dark;
+$navbar-light-hover-color:          $red;
+$navbar-light-active-color:         $red;
+$navbar-light-disabled-color:       rgba($black, .3);
+
+// Dropdown
+$dropdown-dark-link-active-bg: map-get($theme-colors, "red");
+
+// Nav Tabs
+$nav-link-color:                    $gray-400;
+$nav-link-hover-color:              $gray-300;
+$nav-link-transition:               color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+$nav-link-disabled-color:           $gray-600;
+$nav-pills-border-radius:           $border-radius;
+$nav-pills-link-active-color:       $component-active-color;
+$nav-pills-link-active-bg:          $red;
+
+
+// Tables
+$table-group-separator-color: $gray-600;
+
+
+// Modals
+$modal-content-bg: #222;
+
+
+// Accordion
+$accordion-bg: transparent;
+
+$accordion-button-color: $light;
+$accordion-button-bg: map-get($map: $custom-theme-colors, $key: "cz-dark2");
+$accordion-button-active-color: $dark;
+$accordion-button-focus-border-color: transparent;
+$accordion-button-focus-box-shadow: none;
+
+$accordion-button-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$light}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+$accordion-button-active-icon:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='#{$accordion-icon-color}'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+

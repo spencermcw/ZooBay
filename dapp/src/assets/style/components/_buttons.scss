@@ -1,0 +1,121 @@
+
+@keyframes wave {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 50% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+
+
+button.cz-btn {
+    position: relative;
+    display: block;
+    color: $light;
+    border-radius: 5px;
+    padding: 3px 9px;
+    min-height: 2.5rem;
+
+    &--sm {
+        min-height: 1.5rem;
+    }
+
+    &--primary {
+        background: $btn-gradient;
+        border-style: none;
+        transition: box-shadow 0.2s;
+        &:hover {
+            box-shadow: 0 0 8px map-get($custom-theme-colors, "cz-gold2");
+            // background-size: 300% 100%;
+            // animation: wave 2s ease infinite;
+        }
+    }
+
+    &--secondary {
+        background-color: transparent;
+        box-shadow: none;
+        border: 2px solid map-get($custom-theme-colors, "cz-gold2");
+    }
+
+    &--discord {
+        $discord-color: #5865F2;
+        background: linear-gradient(to right, darken($discord-color, 15%), $discord-color);
+        border-style: none;
+        transition: box-shadow 0.3s;
+        &:hover {
+            box-shadow: 0 0 15px $discord-color;
+            background-size: 300% 100%;
+            animation: wave 2s ease infinite;
+        }
+    }
+
+    &--twitter {
+        $twitter-color: #58aaf2;
+        background: linear-gradient(to right, darken($twitter-color, 15%), $twitter-color);
+        border-style: none;
+        transition: box-shadow 0.3s;
+        &:hover {
+            box-shadow: 0 0 15px $twitter-color;
+            background-size: 300% 100%;
+            animation: wave 2s ease infinite;
+        }
+    }
+
+    &:disabled {
+        background-color: $dark;
+        box-shadow: none;
+        border-color: $dark;
+    }
+}
+
+
+.checkbox-container {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    
+    & * {
+        margin-right: 10px;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+        &:checked ~ .checkbox > i {
+            display: block;
+        }
+    }
+
+    .checkbox {
+        width: 25px;
+        height: 25px;
+        background-color: map-get($map: $custom-theme-colors, $key: "cz-dark2");
+        border: 2px solid #555;
+        border-radius: 5px;
+        display: inline-block;
+        position: relative;
+
+
+        i {
+            position: absolute;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -45%);
+        }
+    }
+}

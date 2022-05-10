@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  pg:
+    build:
+      context: .
+      dockerfile: pg.Dockerfile
+    container_name: pg
+    ports:
+      - "5432:5432"
+  eth:
+    build:
+      context: .
+      dockerfile: eth.Dockerfile
+    container_name: eth
+    ports:
+      - "8545:8545"

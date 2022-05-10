@@ -1,0 +1,22 @@
+$custom-theme-colors: (
+    "light-green": #5d8f48,
+    "dark-green": #284E12,
+    "nav-green": #19251B,
+    "banana": #FFFF51,
+    "patch-blue": #2B77E4,
+    "cz-dark1": #000000,
+    "cz-dark2": #1a1a1a,
+    "cz-dark3": #333333,
+    "cz-gold1": #f0bb59,
+    "cz-gold2": #e49f1f,
+    "cz-gold3": #aa6f00,
+    "twitter1": #58aaf2,
+    "twitter2": #1d74bf
+);
+
+$btn-gradient: linear-gradient(
+    to right,
+    map-get($custom-theme-colors, "cz-gold3") 0%,
+    map-get($custom-theme-colors, "cz-gold2") 60%,
+    map-get($custom-theme-colors, "cz-gold1") 100%,
+);
