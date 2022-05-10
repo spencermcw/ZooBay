@@ -197,7 +197,6 @@ const navs: {
                     </button>
                 </a>
 
-                <!-- <button class="btn cz-btn--primary">Mint 5 Base Eggs</button> -->
                 <p>
                     🔥
                     <span class="gold wb">
