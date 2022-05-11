@@ -3,7 +3,6 @@ require("@nomiclabs/hardhat-waffle");
 const {
   HARDHAT_NETWORK_URL,
   HARDHAT_CHAIN_ID,
-  HARDHAT_ACCOUNTS,
 } = process.env;
 
 const config = {
@@ -16,10 +15,6 @@ const config = {
     },
   }
 };
-
-if (HARDHAT_ACCOUNTS !== undefined) {
-  config.networks.default.accounts = JSON.parse(HARDHAT_ACCOUNTS)
-}
 
 console.log(config);
 

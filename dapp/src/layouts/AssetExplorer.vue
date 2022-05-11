@@ -64,6 +64,7 @@ const assetCollection = computed((): AssetCollection => {
         getAddress(contracts.BaseAnimal.address),
         getAddress(contracts.HybridEgg.address),
         getAddress(contracts.HybridAnimal.address),
+        getAddress(contracts.OneOfOne.address),
     ].forEach(address => {
         collection[address] = {
             contract: address,
