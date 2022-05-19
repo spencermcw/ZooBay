@@ -66,6 +66,10 @@ watchEffect(() => {
 
     <div class="container my-3" v-if="!loading && address.length > 0">
         <h1><span class="gold">Your</span> 1 of 1s</h1>
+        <button class="cz-btn cz-btn--primary">
+            <i class="bi bi-award"></i>
+            Redeem
+        </button>
         <AssetExplorerVue
             :assets="oooAssets"
             :show-title="false"

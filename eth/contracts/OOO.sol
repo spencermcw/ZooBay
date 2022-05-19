@@ -37,7 +37,7 @@ contract OOO is ERC721Enumerable, Ownable {
     }
 
     function claim(address contractAddr, uint tokenId)
-        external
+        public
         returns (uint)
     {
         Claim storage claim_ = _claims[contractAddr][tokenId];
