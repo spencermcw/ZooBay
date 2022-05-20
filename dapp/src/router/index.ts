@@ -41,6 +41,12 @@ const routes = [{
         beforeEnter: requireLogin
     },
     {
+        path: '/redeem',
+        name: 'Redeem',
+        component: () => import('../layouts/Redeem.vue'),
+        beforeEnter: requireLogin
+    },
+    {
         path: '/listings/:id',
         name: 'Listing',
         component: () => import('../layouts/Listing.vue')

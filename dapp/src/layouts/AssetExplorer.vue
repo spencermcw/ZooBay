@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<{
     showAccordion?: boolean;
     showTitle?: boolean;
     interactive?: boolean;
+    showLightbox?: boolean;
     highlight?: (contract: string, id: string) => boolean;
 }>(), {
     highlight: () => false,
@@ -30,6 +31,7 @@ const props = withDefaults(defineProps<{
     showFeature: true,
     showAccordion: true,
     showTitle: true,
+    showLightbox: true,
     interactive: false,
 });
 
@@ -46,7 +48,9 @@ const lightbox = ref<(typeof ModalVue)|null>(null);
 
 const showLightbox = (image: LightboxImage) => {
     lightboxImage.value = { ...image };
-    lightbox.value!.show();
+    if (props.showLightbox) {
+        lightbox.value!.show();
+    }
 }
 
 const accordionRef = ref<HTMLElement | null>(null);
@@ -60,6 +64,7 @@ const assetCollection = computed((): AssetCollection => {
         getAddress(contracts.BaseAnimal.address),
         getAddress(contracts.HybridEgg.address),
         getAddress(contracts.HybridAnimal.address),
+        getAddress(contracts.OneOfOne.address),
     ].forEach(address => {
         collection[address] = {
             contract: address,
@@ -170,7 +175,7 @@ watch(accordionRef, (newVal, _) => {
             </span>
         </div>
 
-        <ModalVue ref="lightbox" class="lightbox">
+        <ModalVue ref="lightbox" class="lightbox" v-show="showLightbox">
             <div class="thumbnail--lightbox">
                 <span class="one-of-one" v-if="lightboxImage.oneOfOne">
                     <i class="bi bi-patch-check-fill"></i>

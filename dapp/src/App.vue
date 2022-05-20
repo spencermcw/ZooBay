@@ -100,6 +100,10 @@ const navs: {
         title: 'My Zoo',
         icon: 'bi-binoculars',
         to: '/zoo'
+    }, {
+        title: 'Redeem 1/1s',
+        icon: 'bi-award',
+        to: '/redeem'
     }],
 }, {
     title: 'Auctions',
@@ -193,7 +197,6 @@ const navs: {
                     </button>
                 </a>
 
-                <!-- <button class="btn cz-btn--primary">Mint 5 Base Eggs</button> -->
                 <p>
                     🔥
                     <span class="gold wb">

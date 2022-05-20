@@ -14,49 +14,49 @@ async function main() {
     const ZOO = await hre.ethers.getContractFactory("ZOO");
     const zoo = await ZOO.deploy();
     await zoo.deployed();
-    console.log("ZOO: ", zoo.address);
+    console.log("ZOO_ADDRESS=" + zoo.address);
 
     // Deploy AH
     const AuctionHouse = await hre.ethers.getContractFactory("AuctionHouse");
     const auctionHouse = await AuctionHouse.deploy();
     await auctionHouse.deployed();
-    console.log("AH: ", auctionHouse.address);
+    console.log("AUCTION_HOUSE_ADDRESS=" + auctionHouse.address);
 
     // Deploy EGG token
     const EGG = await hre.ethers.getContractFactory("EGG");
     const egg = await EGG.deploy();
     await egg.deployed();
-    console.log("EGG: ", egg.address);
+    console.log("EGG_ADDRESS=" + egg.address);
 
     // Deploy ANML token
     const ANML = await hre.ethers.getContractFactory("ANML");
     const anml = await ANML.deploy();
     await anml.deployed();
-    console.log("ANML: ", anml.address);
+    console.log("ANML_ADDRESS=" + anml.address);
 
     // Deploy HEGG token
     const HEGG = await hre.ethers.getContractFactory("HEGG");
     const hegg = await HEGG.deploy();
     await hegg.deployed();
-    console.log("HEGG: ", hegg.address);
+    console.log("HEGG_ADDRESS=" + hegg.address);
 
     // Deploy ANML token
     const HANML = await hre.ethers.getContractFactory("HANML");
     const hanml = await HANML.deploy();
     await hanml.deployed();
-    console.log("HANML: ", hanml.address);
+    console.log("HANML_ADDRESS=" + hanml.address);
 
     // Deploy OOO token
     const OOO = await hre.ethers.getContractFactory("OOO");
     const ooo = await OOO.deploy("OOO", "One of One");
     await ooo.deployed();
-    console.log("OOO: ", ooo.address);
+    console.log("OOO_ADDRESS=" + ooo.address);
 
     // Deploy Eggstravaganza
     const EEGG = await hre.ethers.getContractFactory("EEGG");
     const eegg = await EEGG.deploy();
     await eegg.deployed();
-    console.log("eegg: ", eegg.address);
+    console.log("EEGG_ADDRESS=" + eegg.address);
 
 
     // Minting

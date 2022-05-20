@@ -16,7 +16,6 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             )
             ids.sort((a, b) => a.gt(b) ? 1 : -1)
             const formattedAssets = await Promise.all<Asset>(ids.map(async v => {
-                // TODO: Cache (maybe can't be done with dynamic metadata...)
                 return {
                     id: v.toString(),
                     contract: contract.address,
@@ -34,6 +33,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         await assetsForContract(contracts.BaseAnimal);
         await assetsForContract(contracts.HybridEgg);
         await assetsForContract(contracts.HybridAnimal);
+        await assetsForContract(contracts.OneOfOne);
     } catch(e) {
         console.error(e);
         return res.sendStatus(500);

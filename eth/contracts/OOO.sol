@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 
-contract OOO is ERC721, Ownable {
+contract OOO is ERC721Enumerable, Ownable {
     uint private tokenIndex;
 
     /// @notice Contract Whitelist
@@ -37,7 +37,7 @@ contract OOO is ERC721, Ownable {
     }
 
     function claim(address contractAddr, uint tokenId)
-        external
+        public
         returns (uint)
     {
         Claim storage claim_ = _claims[contractAddr][tokenId];
