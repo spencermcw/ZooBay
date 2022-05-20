@@ -2,24 +2,27 @@ import { Contract } from 'ethers'
 import { AssetContract } from './types'
 import { ethers } from 'ethers'
 
+// Top Contracts
 import zoo from './zoo'
-import auctionHouse from './auctionHouse'
-
-import baseEgg from './baseEgg'
-import baseAnimal from './baseAnimal'
-import hybridEgg from './hybridEgg'
-import hybridAnimal from './hybridAnimal'
-
-import oneOfOne from './oneOfOne'
-
 export const Zoo = zoo
+import auctionHouse from './auctionHouse'
 export const AuctionHouse = auctionHouse
 
+// CZ Assets General Assets
+import baseEgg from './baseEgg'
 export const BaseEgg = baseEgg
+import baseAnimal from './baseAnimal'
 export const BaseAnimal = baseAnimal
+import hybridEgg from './hybridEgg'
 export const HybridEgg = hybridEgg
+import hybridAnimal from './hybridAnimal'
 export const HybridAnimal = hybridAnimal
+
+// One-Offs
+import oneOfOne from './oneOfOne'
 export const OneOfOne = oneOfOne
+import easterEgg from './easterEgg'
+export const EasterEgg = easterEgg
 
 
 const getAddress = ethers.utils.getAddress
@@ -39,6 +42,7 @@ export const AssetContractsByAddress: {
     [getAddress(process.env.HEGG_ADDRESS as string)]: HybridEgg,
     [getAddress(process.env.HANML_ADDRESS as string)]: HybridAnimal,
     [getAddress(process.env.OOO_ADDRESS as string)]: OneOfOne,
+    [getAddress(process.env.EEGG_ADDRESS as string)]: EasterEgg,
 }
 
 
@@ -50,4 +54,5 @@ export default {
     HybridEgg,
     HybridAnimal,
     OneOfOne,
+    EasterEgg,
 }

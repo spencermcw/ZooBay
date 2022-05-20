@@ -20,20 +20,14 @@ contract DummyERC721 is ERC721Enumerable {
 contract EEGG is ERC721 {
     constructor() ERC721("EEGG", "Easter Egg")
     {
-        _safeMint(_msgSender(), 1);
+        _safeMint(_msgSender(), 0);
     }
 
-    function tokenURI(uint tokenId)
+    function tokenURI(uint id)
         override public pure returns (string memory)
     {
-        tokenId;
-        return tokenURI();
-    }
-
-    function tokenURI()
-        public pure returns (string memory) 
-    {
-        return "http://some.ipfs.hash";
+        id;
+        return "http://localhost:3005/eegg_metadata";
     }
 }
 
