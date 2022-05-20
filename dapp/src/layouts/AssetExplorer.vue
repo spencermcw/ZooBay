@@ -60,11 +60,12 @@ const featuredAssetCarousel = ref<Carousel | null>(null);
 const assetCollection = computed((): AssetCollection => {
     const collection: AssetCollection = { };
     [
+        getAddress(contracts.EasterEgg.address),
+        // getAddress(contracts.OneOfOne.address),
         getAddress(contracts.BaseEgg.address),
         getAddress(contracts.BaseAnimal.address),
         getAddress(contracts.HybridEgg.address),
         getAddress(contracts.HybridAnimal.address),
-        getAddress(contracts.OneOfOne.address),
     ].forEach(address => {
         collection[address] = {
             contract: address,

@@ -5,6 +5,7 @@ import baseAnimal from './baseAnimal'
 import hybridEgg from './hybridEgg'
 import hybridAnimal from './hybridAnimal'
 import oneOfOne from './oneOfOne'
+import easterEgg from './easterEgg'
 
 export const Zoo = zoo
 export const AuctionHouse = auctionHouse
@@ -13,6 +14,7 @@ export const BaseAnimal = baseAnimal
 export const HybridEgg = hybridEgg
 export const HybridAnimal = hybridAnimal
 export const OneOfOne = oneOfOne
+export const EasterEgg = easterEgg
 
 export const ContractByAddress = {
     [import.meta.env.VITE_ZOO_ADDRESS as string]: Zoo,
@@ -22,6 +24,7 @@ export const ContractByAddress = {
     [import.meta.env.VITE_HEGG_ADDRESS as string]: HybridEgg,
     [import.meta.env.VITE_HANML_ADDRESS as string]: HybridAnimal,
     [import.meta.env.VITE_OOO_ADDRESS as string]: OneOfOne,
+    [import.meta.env.VITE_EEGG_ADDRESS as string]: EasterEgg,
 }
 
 export default {
@@ -32,4 +35,5 @@ export default {
     HybridEgg,
     HybridAnimal,
     OneOfOne,
+    EasterEgg,
 }

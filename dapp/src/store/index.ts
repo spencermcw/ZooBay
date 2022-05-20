@@ -103,6 +103,11 @@ export const store = createStore < State > ({
                 approval: false,
                 contract: contracts.HybridAnimal.address,
             },
+            [contracts.EasterEgg.address]: {
+                title: "Easter Egg 2022",
+                approval: false,
+                contract: contracts.EasterEgg.address,
+            }
         },
         userAssets: [],
         listings: [],

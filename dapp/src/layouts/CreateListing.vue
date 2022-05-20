@@ -33,6 +33,7 @@ const listingDetails = ref({
     duration: durationOptions[1],
 });
 const selectedAssets = ref({
+    [contracts.EasterEgg.address]: new Set<string>(),
     [contracts.BaseEgg.address]: new Set<string>(),
     [contracts.BaseAnimal.address]: new Set<string>(),
     [contracts.HybridEgg.address]: new Set<string>(),
@@ -54,6 +55,7 @@ const assetCount = computed(() => {
         selectedAssets.value[contracts.BaseAnimal.address].size,
         selectedAssets.value[contracts.HybridEgg.address].size,
         selectedAssets.value[contracts.HybridAnimal.address].size,
+        selectedAssets.value[contracts.EasterEgg.address].size,
     ].reduce((p, c) => p + c, 0)
 })
 

@@ -18,7 +18,7 @@ contract DummyERC721 is ERC721Enumerable {
 
 
 contract EEGG is ERC721 {
-    constructor() ERC721("EEGG", "Easter Egg")
+    constructor() ERC721("EEGG22", "CZ Easter Egg 2022")
     {
         _safeMint(_msgSender(), 0);
     }
@@ -27,7 +27,7 @@ contract EEGG is ERC721 {
         override public pure returns (string memory)
     {
         id;
-        return "http://localhost:3005/eegg_metadata";
+        return "ipfs://bafyreifxjgxlubg7hnb4tpkwmqqdmuwkgedom5jlvwwgv4nbkmt2lsvape/metadata.json";
     }
 }
 
