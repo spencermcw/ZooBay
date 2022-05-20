@@ -23,8 +23,17 @@ contract EEGG is ERC721 {
         _safeMint(_msgSender(), 1);
     }
 
-    function _baseURI() override internal pure returns (string memory) {
-        return "http://eegg.kek";
+    function tokenURI(uint tokenId)
+        override public pure returns (string memory)
+    {
+        tokenId;
+        return tokenURI();
+    }
+
+    function tokenURI()
+        public pure returns (string memory) 
+    {
+        return "http://some.ipfs.hash";
     }
 }
 
