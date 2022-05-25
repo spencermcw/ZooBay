@@ -6,17 +6,11 @@ import abi from './ABIs/EasterEgg';
 import { provider } from '..';
 import { Asset } from '../../types';
 
+import { parseIPFS } from '../../lib';
+
 const address = process.env.EEGG_ADDRESS as string;
 const contract = new ethers.Contract(address, abi, provider)
 
-// TODO: Lib this bis
-const parseIPFS = (address: string): string => {
-    const regexpat = /ipfs:\/\/([^\/]*)\/(.*)$/;
-    const match = address.match(regexpat);
-    return match === null ?
-        '' :
-        `https://${match[1]}.ipfs.dweb.link/${match[2]}`
-}
 
 const generateMetaData = async (id: string): Promise<AssetMetadata> => {
     try {

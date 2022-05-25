@@ -11,7 +11,7 @@ export interface AssetMetadata {
     type: string;
     name: string;
 
-    oneOfOne?: boolean;
+    claimable?: boolean;
 
     // Base Animal
     breeds?: string;
@@ -29,7 +29,7 @@ export interface Asset {
     id: string;
     contract: string;
     metadata: AssetMetadata;
-    oneOfOne?: boolean;
+    claimable?: boolean;
 }
 
 export interface AssetCollection {

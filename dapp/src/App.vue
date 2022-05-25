@@ -100,10 +100,10 @@ const navs: {
         title: 'My Zoo',
         icon: 'bi-binoculars',
         to: '/zoo'
-    // }, {
-    //     title: 'Redeem 1/1s',
-    //     icon: 'bi-award',
-    //     to: '/redeem'
+    }, {
+        title: 'Claim 1/1s',
+        icon: 'bi-award',
+        to: '/claim'
     }],
 }, {
     title: 'Auctions',

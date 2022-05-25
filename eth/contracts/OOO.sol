@@ -3,78 +3,111 @@ pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+// import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract OOO is ERC721Enumerable, Ownable {
+/// @title A Claimable ERC721
+/// @notice Holders of requisite tokens can claim an ERC721 token
+contract ClaimableERC721 is ERC721Enumerable, Ownable {
+    /// @notice Claimable Token Events
+    /// @dev Watch events to track unclaimed tokens
+    event ClaimableAdded(
+        address indexed requisiteTokenAddr,
+        uint indexed requisiteTokenId
+    );
+    event Claimed(
+        address indexed requisiteTokenAddr,
+        uint indexed requisiteTokenId,
+        uint tokenId
+    );
+
     uint private tokenIndex;
 
-    /// @notice Contract Whitelist
-    mapping(address => bool) public _whitelist;
-
-    struct Claim {
+    /// @notice Claimable token
+    struct Token {
         bool claimed;
         string URI;
     }
 
-    /// @notice Mapping Animal Tokens to 1 of 1 Metadata
-    mapping(address => mapping(uint => Claim)) private _claims;
+    /// @notice Requisite token mapped to claimable token
+    mapping(address => mapping(uint => Token)) private _tokens;
 
-    constructor(
-        string memory name_,
-        string memory symbol_
-    )
+    constructor(string memory name_, string memory symbol_)
         ERC721(name_, symbol_)
-    { }
+    {}
 
-    function whitelist(address[] memory contractAddrs, bool enable)
-        external onlyOwner
-    {
-        for(uint i; i < contractAddrs.length; i++) {
-            _whitelist[contractAddrs[i]] = enable;
-        }
-    }
+    /// @notice Claim token
+    /// @param contractAddr of the requisite token
+    /// @param tokenId of the requisite token
+    /// @return uint Claimed token Id
+    /// @dev msg.sender must possess the requisite token in order to claim
+    function claim(address contractAddr, uint tokenId) external returns (uint) {
+        Token storage token_ = _tokens[contractAddr][tokenId];
 
-    function claim(address contractAddr, uint tokenId)
-        public
-        returns (uint)
-    {
-        Claim storage claim_ = _claims[contractAddr][tokenId];
+        require(bytes(token_.URI).length != 0, "Not Valid Claim");
+
+        require(!token_.claimed, "Already Claimed");
 
         require(
-            _whitelist[contractAddr] && bytes(claim_.URI).length != 0,
-            "Not Valid Claim"
-        );
-
-        require(
-            !claim_.claimed,
-            "Already Claimed"
-        );
-
-        require(
-            ERC721(contractAddr).ownerOf(tokenId) == _msgSender(),
+            ERC721(contractAddr).ownerOf(tokenId) == msg.sender,
             "Not Owner"
         );
 
-        claim_.claimed = true;
+        token_.claimed = true;
         tokenIndex++;
 
-        _safeMint(_msgSender(), tokenIndex);
-        _setTokenURI(tokenIndex, claim_.URI);
+        _tokens[address(this)][tokenIndex] = token_;
+        _safeMint(msg.sender, tokenIndex);
+
+        emit Claimed(contractAddr, tokenId, tokenIndex);
 
         return tokenIndex;
     }
 
+    /// @notice Checks if a claimable token has already been claimed
+    /// @param contractAddr of the requisite token
+    /// @param tokenId of the requisite token
+    /// @return bool Claim Status
     function isClaimed(address contractAddr, uint tokenId)
-        public view
+        public
+        view
         returns (bool)
     {
-        return _claims[contractAddr][tokenId].claimed;
+        Token storage token_ = _tokens[contractAddr][tokenId];
+
+        require(bytes(token_.URI).length != 0, "Not Valid Claim");
+
+        return token_.claimed;
     }
 
+    /// @notice Owner can bulk add new claimable tokens
+    /// @param contractAddr of the requisite tokens
+    /// @param tokenIds[] of the requisite tokens
+    /// @param uris[] of the new claimable tokens
+    /// @dev tokenIds[] and uris[] require matching indexes
+    function addTokens(
+        address contractAddr,
+        uint[] memory tokenIds,
+        string[] memory uris
+    ) external onlyOwner {
+        require(tokenIds.length == uris.length);
+
+        for (uint idx; idx < tokenIds.length; idx++) {
+            _tokens[contractAddr][tokenIds[idx]].URI = uris[idx];
+
+            emit ClaimableAdded(contractAddr, tokenIds[idx]);
+        }
+    }
+
+    /// @notice Returns the claimable token URI
+    /// @param tokenId of the claimable token
+    /// @return string Token URI
     function tokenURI(uint tokenId)
-        public view virtual override
+        public
+        view
+        virtual
+        override
         returns (string memory)
     {
         require(
@@ -82,52 +115,6 @@ contract OOO is ERC721Enumerable, Ownable {
             "ERC721Metadata: URI query for nonexistent token"
         );
 
-        return _claims[address(this)][tokenId].URI;
-    }
-
-    function _setTokenURI(uint tokenId, string memory newURI)
-        internal
-    {
-        _claims[address(this)][tokenId].URI = newURI;
-    }
-
-    /**
-     * @dev Admin Controls for updating 1 of 1s
-     */
-    function setTokenURI(uint tokenId, string memory newURI)
-        public onlyOwner
-    {
-        _setTokenURI(tokenId, newURI);
-    }
-
-    function setMetadata(
-        address contractAddr,
-        uint tokenId,
-        string memory newURI
-    )
-        external onlyOwner
-    {
-        _claims[contractAddr][tokenId].URI = newURI;
-    }
-
-    function setBulkMetadata(
-        address contractAddr,
-        uint[] memory tokenIds,
-        string[] memory uris
-    )
-        external onlyOwner
-    {
-        require(_whitelist[contractAddr], "Not on Whitelist");
-        require(tokenIds.length == uris.length);
-
-        for (uint idx; idx < tokenIds.length; idx++) {
-            _claims[contractAddr][tokenIds[idx]].URI = uris[idx];
-        }
-    }
-
-    function setWhitelist(address contractAddr, bool approved)
-        external onlyOwner
-    {
-        _whitelist[contractAddr] = approved;
+        return _tokens[address(this)][tokenId].URI;
     }
 }
