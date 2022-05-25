@@ -1,18 +1,11 @@
 import { Model, QueryContext } from 'objection'
 import knexInstance from '..'
-import { ethers } from 'ethers'
 
 Model.knex(knexInstance)
 
 import Listings from './Listings'
 
-import baseAnimal from '../../ethereum/contracts/baseAnimal'
-import hybridAnimal from '../../ethereum/contracts/hybridAnimal'
-import oneOfOne from '../../ethereum/contracts/oneOfOne'
-
 import { AssetContractsByAddress } from '../../ethereum/contracts'
-
-const getAddress = ethers.utils.getAddress;
 
 
 export default class Assets extends Model {
