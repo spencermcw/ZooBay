@@ -15,4 +15,6 @@ declare global {
 const RPC_URL = process.env.RPC_URL;
 const NETWORK = Number(process.env.NETWORK);
 
+console.log(RPC_URL, NETWORK)
+
 export const provider = new ethers.providers.JsonRpcProvider(RPC_URL, NETWORK);
