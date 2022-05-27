@@ -260,9 +260,7 @@ export const store = createStore < State > ({
 
         [ACTIONS.FETCH_ASSETS]: async ({
             commit,
-            // getters
         }, account) => {
-            // const account = getters[GETTERS.ACTIVE_ACCOUNT_ADDRESS]
             return axios.get(`${import.meta.env.VITE_API_URL}/assets/${account}`)
                 .then(({
                     data: assets

@@ -37,9 +37,7 @@ onMounted(() => {
 watchEffect(() => {
     // Fetch User Assets
     loading.value = true;
-    Promise.all([
-        store.dispatch(ACTIONS.FETCH_ASSETS, address.value),
-    ])
+    store.dispatch(ACTIONS.FETCH_ASSETS, address.value)
         .then(() => { loading.value = false })
         .catch(console.error);
 })

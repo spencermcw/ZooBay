@@ -385,7 +385,7 @@ watch(accordionRef, (newVal, _) => {
         position: relative;
         display: block;
         margin: 0 auto;
-        height: 500px;
+        // height: 500px;
         max-height: 30vh;
         max-width: 100%;
         border-radius: 5px;
@@ -396,8 +396,8 @@ watch(accordionRef, (newVal, _) => {
         position: relative;
 
         img {
-            height: 100%;
-            width: 100%;
+            // height: 100%;
+            // width: 100%;
             max-width: 100%;
             max-height: 70vh;
             object-fit: cover;
