@@ -1,0 +1,1 @@
+import{C as e,o,a as t,b as s}from"./index.269f9eaf.js";const c={},n={class:"not-found my-4"},a=s("h1",{class:"text-center"},"Page Not Found",-1),r=[a];function _(d,f){return o(),t("section",n,r)}var l=e(c,[["render",_]]);export{l as default};
