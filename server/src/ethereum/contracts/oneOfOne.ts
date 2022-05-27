@@ -6,21 +6,24 @@ import type { Asset } from '../../types'
 import abi from './ABIs/OOO';
 import { provider } from '..';
 
+import { parseIPFS } from '../../lib';
+
 const address = process.env.OOO_ADDRESS as string;
 const contract = new ethers.Contract(address, abi, provider)
 
 const generateMetaData = async (id: string): Promise<AssetMetadata> => {
     try {
         const tokenURI = await contract.tokenURI(id)
-        const { data } = await axios.get(tokenURI)
+        const { data } = await axios.get(parseIPFS(tokenURI))
 
-        const meatadata: AssetMetadata = {
+        const metadata: AssetMetadata = {
             type: 'One of One',
             name: data.name,
-            oneOfOne: true,
+            claimable: false,
             ...data
         }
-        return meatadata
+        metadata.image = parseIPFS(metadata.image);
+        return metadata
     }
     catch (e) {
         console.log('Failed to fetch metadata for OOO:', id);
@@ -28,7 +31,7 @@ const generateMetaData = async (id: string): Promise<AssetMetadata> => {
             type: 'One of One',
             name: 'One of One 404',
             image: 'https://via.placeholder.com/550x1000',
-            oneOfOne: true,
+            claimable: false,
         };
     }
 }

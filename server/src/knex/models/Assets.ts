@@ -1,33 +1,22 @@
-import { Model } from 'objection'
+import { Model, QueryContext } from 'objection'
 import knexInstance from '..'
-import { ethers } from 'ethers'
 
 Model.knex(knexInstance)
 
 import Listings from './Listings'
 
-import baseAnimal from '../../ethereum/contracts/baseAnimal'
-import hybridAnimal from '../../ethereum/contracts/hybridAnimal'
-
-import hybridOOOIds from '../../1of1s/hybrid_1of1';
-import baseOOOIds from '../../1of1s/base_1of1';
-
-const getAddress = ethers.utils.getAddress;
+import { AssetContractsByAddress } from '../../ethereum/contracts'
 
 
 export default class Assets extends Model {
+    metadata!: object;
+    contract!: string;
+    id!: string;
+
     static tableName: string = 'assets'
 
-    $formatJson = (json: object) => {
-        const _json = super.$formatJson(json);
-        if (getAddress(_json.contract) === getAddress(hybridAnimal.address)) {
-            _json.metadata.oneOfOne = hybridOOOIds.has(_json.id);
-        } else if (getAddress(_json.contract) === getAddress(baseAnimal.address)) {
-            _json.metadata.oneOfOne = baseOOOIds.has(_json.id);
-        } else {
-            _json.metadata.oneOfOne = false;
-        }
-        return _json;
+    async $afterFind(context: QueryContext) {
+        this.metadata = await AssetContractsByAddress[this.contract].generateMetaData(this.id);
     }
 
     static get relationMappings() {

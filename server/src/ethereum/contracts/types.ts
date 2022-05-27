@@ -5,7 +5,7 @@ export interface AssetMetadata {
     type: string;
     image: string;
     name: string;
-    oneOfOne?: boolean;
+    claimable?: boolean;
     cooldown?: string;
     breeds?: number;
     parents?: string[];

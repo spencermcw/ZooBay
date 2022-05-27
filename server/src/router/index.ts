@@ -13,7 +13,7 @@ router.get('/ping', (req, res) => {
 
 // router.get('/bids', handlers.allBids);
 
-// router.get('/assets', handlers.allAssets);
+router.get('/assets', handlers.allAssets);
 
 router.get('/assets/:account', handlers.assetsByAccount);
 

@@ -47,7 +47,7 @@ async function main() {
     console.log("HANML_ADDRESS=" + hanml.address);
 
     // Deploy OOO token
-    const OOO = await hre.ethers.getContractFactory("OOO");
+    const OOO = await hre.ethers.getContractFactory("ClaimableERC721");
     const ooo = await OOO.deploy("OOO", "One of One");
     await ooo.deployed();
     console.log("OOO_ADDRESS=" + ooo.address);
@@ -85,6 +85,19 @@ async function main() {
     await anml.connect(signer).setApprovalForAll(auctionHouse.address, true);
     await hegg.connect(signer).setApprovalForAll(auctionHouse.address, true);
     await hanml.connect(signer).setApprovalForAll(auctionHouse.address, true);
+
+    // OOO Setup
+    console.log("Setting up OOO");
+    await ooo.connect(signer).addTokens(
+        anml.address,
+        [0,1,2,3],
+        Array.from({length: 4}, () => "ipfs://bafyreifxjgxlubg7hnb4tpkwmqqdmuwkgedom5jlvwwgv4nbkmt2lsvape/metadata.json")
+    );
+    await ooo.connect(signer).addTokens(
+        hanml.address,
+        [0,1],
+        Array.from({length: 2}, () => "ipfs://bafyreifxjgxlubg7hnb4tpkwmqqdmuwkgedom5jlvwwgv4nbkmt2lsvape/metadata.json")
+    );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
