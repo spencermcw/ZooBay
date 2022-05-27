@@ -40,12 +40,12 @@ const routes = [{
         component: () => import('../layouts/ViewZoo.vue'),
         beforeEnter: requireLogin
     },
-    // {
-    //     path: '/redeem',
-    //     name: 'Redeem',
-    //     component: () => import('../layouts/Redeem.vue'),
-    //     beforeEnter: requireLogin
-    // },
+    {
+        path: '/claim',
+        name: 'Redeem',
+        component: () => import('../layouts/Redeem.vue'),
+        beforeEnter: requireLogin
+    },
     {
         path: '/listings/:id',
         name: 'Listing',

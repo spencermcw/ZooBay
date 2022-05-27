@@ -37,12 +37,12 @@ const props = withDefaults(defineProps<{
 
 interface LightboxImage {
     src: string;
-    oneOfOne: boolean;
+    claimable: boolean;
 }
 
 const lightboxImage = ref<LightboxImage>({
     src: 'https://via.placeholder.com/170x300',
-    oneOfOne: true
+    claimable: true
 });
 const lightbox = ref<(typeof ModalVue)|null>(null);
 
@@ -61,7 +61,7 @@ const assetCollection = computed((): AssetCollection => {
     const collection: AssetCollection = { };
     [
         getAddress(contracts.EasterEgg.address),
-        // getAddress(contracts.OneOfOne.address),
+        getAddress(contracts.OneOfOne.address),
         getAddress(contracts.BaseEgg.address),
         getAddress(contracts.BaseAnimal.address),
         getAddress(contracts.HybridEgg.address),
@@ -155,11 +155,11 @@ watch(accordionRef, (newVal, _) => {
             <div class="carousel slide" ref="featuredAssetCarouselRef">
                 <div class="carousel-inner">
                     <div :class="`carousel-item ${key===0?'active':''}`" v-for="(asset, key) in assets" :key="key">
-                        <div class="thumbnail" @click="showLightbox({ src: asset.metadata.image, oneOfOne: asset.metadata.oneOfOne === undefined ? false : asset.metadata.oneOfOne })">
+                        <div class="thumbnail" @click="showLightbox({ src: asset.metadata.image, claimable: asset.metadata.claimable === undefined ? false : asset.metadata.claimable })">
                             <img :src="asset.metadata.image">
-                            <span class="one-of-one" v-if="asset.metadata.oneOfOne">
+                            <span class="one-of-one" v-if="asset.metadata.claimable">
                                 <i class="bi bi-patch-check-fill"></i>
-                                1 of 1
+                                Claimable 1 of 1
                             </span>
                         </div>
                         <p class="text-center">
@@ -178,7 +178,7 @@ watch(accordionRef, (newVal, _) => {
 
         <ModalVue ref="lightbox" class="lightbox" v-show="showLightbox">
             <div class="thumbnail--lightbox">
-                <span class="one-of-one" v-if="lightboxImage.oneOfOne">
+                <span class="one-of-one" v-if="lightboxImage.claimable">
                     <i class="bi bi-patch-check-fill"></i>
                     1 of 1
                 </span>
@@ -203,11 +203,11 @@ watch(accordionRef, (newVal, _) => {
                                 <div :class="['d-flex gap-3 align-items-center asset', { interactive,  highlight: highlight(collection.contract, token.id) }]"
                                     @click="assetSelected({ contract: collection.contract, id: token.id })"
                                 >
-                                    <div class="thumbnail" @click="showLightbox({ src: token.metadata.image, oneOfOne: token.metadata.oneOfOne === undefined ? false : token.metadata.oneOfOne })">
+                                    <div class="thumbnail" @click="showLightbox({ src: token.metadata.image, claimable: token.metadata.claimable === undefined ? false : token.metadata.claimable })">
                                         <img :src="token.metadata.image">
-                                        <span class="one-of-one" v-if="token.metadata.oneOfOne">
+                                        <span class="one-of-one" v-if="token.metadata.claimable">
                                             <i class="bi bi-patch-check-fill"></i>
-                                            1 of 1
+                                            Claimable 1 of 1
                                         </span>
                                     </div>
                                     <div class="d-grid flex-grow-1 asset__details">
@@ -385,7 +385,7 @@ watch(accordionRef, (newVal, _) => {
         position: relative;
         display: block;
         margin: 0 auto;
-        height: 500px;
+        // height: 500px;
         max-height: 30vh;
         max-width: 100%;
         border-radius: 5px;
@@ -396,8 +396,8 @@ watch(accordionRef, (newVal, _) => {
         position: relative;
 
         img {
-            height: 100%;
-            width: 100%;
+            // height: 100%;
+            // width: 100%;
             max-width: 100%;
             max-height: 70vh;
             object-fit: cover;

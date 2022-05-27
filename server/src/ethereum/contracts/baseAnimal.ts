@@ -6,14 +6,22 @@ import type { AssetMetadata, AssetContract } from './types';
 import abi from './ABIs/BaseAnimal';
 import { provider } from '..';
 
-import HybridEgg from './hybridEgg';
+import oneOfOne from './oneOfOne';
 
-import oooIds from '../../1of1s/base_1of1';
+import HybridEgg from './hybridEgg';
 
 const address = process.env.ANML_ADDRESS as string;
 const contract = new ethers.Contract(address, abi, provider)
 
 const generateMetaData = async (id: string): Promise<AssetMetadata> => {
+    let claimable = false;
+    try {
+        const isClaimed = await oneOfOne.contract.isClaimed(address, id);
+        claimable = !isClaimed;
+    } catch (e) {
+        claimable = false;
+    }
+
     try {
         const tokenURI = await contract.tokenURI(id)
         const { data } = await axios.get(tokenURI)
@@ -25,7 +33,7 @@ const generateMetaData = async (id: string): Promise<AssetMetadata> => {
             name: data.name,
             breeds: breeds,
             cooldown: cooldown.toString(),
-            oneOfOne: oooIds.has(id),
+            claimable,
             ...data
         }
         return meatadata
@@ -37,7 +45,7 @@ const generateMetaData = async (id: string): Promise<AssetMetadata> => {
             name: 'Base Animal',
             image: 'https://via.placeholder.com/550x1000',
             breeds: 0,
-            oneOfOne: oooIds.has(id),
+            claimable,
             cooldown: '0',
         };
     }

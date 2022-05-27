@@ -34,6 +34,7 @@ const listingDetails = ref({
 });
 const selectedAssets = ref({
     [contracts.EasterEgg.address]: new Set<string>(),
+    [contracts.OneOfOne.address]: new Set<string>(),
     [contracts.BaseEgg.address]: new Set<string>(),
     [contracts.BaseAnimal.address]: new Set<string>(),
     [contracts.HybridEgg.address]: new Set<string>(),
@@ -51,11 +52,12 @@ const listingAssets = computed(() => {
 
 const assetCount = computed(() => {
     return [
+        selectedAssets.value[contracts.EasterEgg.address].size,
+        selectedAssets.value[contracts.OneOfOne.address].size,
         selectedAssets.value[contracts.BaseEgg.address].size,
         selectedAssets.value[contracts.BaseAnimal.address].size,
         selectedAssets.value[contracts.HybridEgg.address].size,
         selectedAssets.value[contracts.HybridAnimal.address].size,
-        selectedAssets.value[contracts.EasterEgg.address].size,
     ].reduce((p, c) => p + c, 0)
 })
 
@@ -160,7 +162,7 @@ onMounted(() => {
                             </div>
                         </div>
 
-                        <AssetExplorerVue :assets="userAssets" :highlight="highlight" :interactive="true" :cols="2" @asset-selected="assetSelected" :show-feature="false">
+                        <AssetExplorerVue :assets="userAssets" :highlight="highlight" :interactive="true" :cols="2" @asset-selected="assetSelected" :show-feature="false" :show-lightbox="false">
                             <template v-slot:collection-title="slotProps">
                                 <span>{{ slotProps.collection.title }}s: {{ selectedAssets[slotProps.collection.contract].size }}/{{ slotProps.collection.tokens.length }} Selected</span>
                             </template>

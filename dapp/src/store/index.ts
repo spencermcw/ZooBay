@@ -1,26 +1,11 @@
-import {
-    InjectionKey
-} from 'vue'
-import {
-    createStore,
-    Store
-} from 'vuex'
-import {
-    ethers
-} from 'ethers'
+import { InjectionKey } from 'vue'
+import { createStore, Store } from 'vuex'
+import { ethers } from 'ethers'
 import axios from 'axios'
 
-import {
-    provider
-} from '../ethereum'
-import contracts, {
-    ContractByAddress
-} from '../ethereum/contracts'
-import type {
-    State,
-    Asset,
-    Listing
-} from '../types'
+import { provider } from '../ethereum'
+import contracts, { ContractByAddress } from '../ethereum/contracts'
+import type { State, Asset, Listing } from '../types'
 
 const {
     localStorage
@@ -71,6 +56,8 @@ export const ACTIONS = {
     CANCEL_LISTING: 'CANCEL_LISTING',
     // Bids
     CREATE_BID: 'CREATE_BID',
+    // Claims
+    CLAIM: 'CLAIM',
 }
 
 export const key: InjectionKey < Store < State >> = Symbol()
@@ -107,7 +94,12 @@ export const store = createStore < State > ({
                 title: "Easter Egg 2022",
                 approval: false,
                 contract: contracts.EasterEgg.address,
-            }
+            },
+            [contracts.OneOfOne.address]: {
+                title: "One of Ones",
+                approval: false,
+                contract: contracts.OneOfOne.address,
+            },
         },
         userAssets: [],
         listings: [],
@@ -268,9 +260,7 @@ export const store = createStore < State > ({
 
         [ACTIONS.FETCH_ASSETS]: async ({
             commit,
-            // getters
         }, account) => {
-            // const account = getters[GETTERS.ACTIVE_ACCOUNT_ADDRESS]
             return axios.get(`${import.meta.env.VITE_API_URL}/assets/${account}`)
                 .then(({
                     data: assets
@@ -468,7 +458,8 @@ export const store = createStore < State > ({
             commit,
             dispatch
         }, payload: {
-            listingId: string;amount: string;
+            listingId: string;
+            amount: string;
         }) => {
             if (provider === null) {
                 return alert("Please install the MetaMask browser plugin or use the Browser within the MetaMask app.")
@@ -489,6 +480,22 @@ export const store = createStore < State > ({
                     .finally(() => commit(MUTATIONS.SET_TXN_PENDING, false));
             }
         },
+
+        [ACTIONS.CLAIM]: (context, payload: {
+            contractAddress: string,
+            ids: string[]
+        }) => {
+            if (provider === null) {
+                return alert("Please install the MetaMask browser plugin or use the Browser within the MetaMask app.")
+            } else {
+                const { ids, contractAddress } = payload;
+                return Promise.all(ids.map(id =>
+                    contracts.OneOfOne.connect(provider!.getSigner())
+                        .claim(contractAddress, id)
+                        .catch(console.error)
+                ))
+            }
+        }
     },
 })
 
