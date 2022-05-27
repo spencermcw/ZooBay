@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "eth"
+		},
+		{
+			"path": "nginx"
 		}
 	],
 	"settings": {}
